@@ -1,9 +1,7 @@
 from art import logo
-from math import ceil
+from replit import clear
 
-print(logo)
-print('''
-''')
+
 
 # Calculator
 
@@ -28,19 +26,42 @@ def divide(n1, n2):
     return "nan"
   return n1 / n2
 
+def calculator():
+  print(logo)
+  print('''
+  ''')
 
-operations = {
-  "+": add,
-  "-": subtract,
-  "*": multiply,
-  "/": divide
-}
+  operations = {
+    "+": add,
+    "-": subtract,
+    "*": multiply,
+    "/": divide
+  }
+  
+  num1 = float(input("Enter a number: "))
+  
+  cancel = False
+  while cancel == False:
+    operation_symbol = input("Pick an operator (+, -, *, or /): ")
+    num2 = float(input("Enter a number: "))
 
-num1 = int(input("Enter the first number: "))
-operation_symbol = input("Pick an operator (+, -, *, or /): ")
-num2 = int(input("Enter the second number: "))
+    calculation_function = operations[operation_symbol]
+    answer = calculation_function(num1, num2)
+    
+    print(f"{num1} {operation_symbol} {num2} = {answer}")
+    print("")
+    more_trans = input("'y' continue, 'c' new transaction, or 'q' to quit: ").lower()
+    if more_trans == "y":
+      num1 = answer
+    elif more_trans == "c":
+      cancel = True
+      clear()
+      
+      calculator()
+    else:
+      print("")
+      print("Good Bye!")
+      break
 
-calculation_function = operations[operation_symbol]
-answer =  round(calculation_function(num1, num2), 3) 
-
-print(f"{num1} {operation_symbol} {num2} = {answer}")
+ 
+calculator()
